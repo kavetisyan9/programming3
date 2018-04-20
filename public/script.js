@@ -4,10 +4,10 @@ function genMatrix(w, h) {
         matrix[y] = [];
         for (var x = 0; x < w; x++) {
             var r = random(100);
-            if (r < 10) r = 0;
-            else if (r < 25) r = 1;
-            else if (r < 50) r = 2;
-            else if (r < 75) r = 3;
+            if (r < 20) r = 0;
+            else if (r < 55) r = 1;
+            else if (r < 80) r = 2;
+            else if (r < 90) r = 3;
             else if (r < 100) r = 4;
             matrix[y][x] = r;
         }
@@ -28,14 +28,14 @@ function setup() {
     frameRate(5);
     for (var y in matrix) {
         for (var x in matrix[y]) {
-            if (matrix[y][x] == 1) {
-                grassArr.push(new Grass(x * 1, y * 1, 1));
+            if(matrix[y][x] == 1) {
+                grassArr.push(new Grass(x*1, y*1, 1));
             }
-            else if (matrix[y][x] == 2) {
-                xotakerArr.push(new Xotaker(x * 1, y * 1, 2));
+            else if(matrix[y][x] == 2) {
+                xotakerArr.push(new Xotaker(x*1, y*1, 2));
             }
-            else if (matrix[y][x] == 3) {
-                gishatichArr.push(new Gishatich(x * 1, y * 1, 3))
+            else if(matrix[y][x] == 3) {
+                gishatichArr.push(new Gishatich(x*1, y*1, 3))
             }
             else if (matrix[y][x] == 4) {
                 mardArr.push(new Mard(x * 1, y * 1, 3))
@@ -48,16 +48,16 @@ function draw() {
     background("#acacac");
     for (var y in matrix) {
         for (var x in matrix[y]) {
-            if (matrix[y][x] == 0) {
+            if(matrix[y][x] == 0) {
                 fill("#acacac");
             }
-            else if (matrix[y][x] == 1) {
+            else if(matrix[y][x] == 1) {
                 fill("green");
             }
-            else if (matrix[y][x] == 2) {
+            else if(matrix[y][x] == 2) {
                 fill("yellow");
             }
-            else if (matrix[y][x] == 3) {
+            else if(matrix[y][x] == 3) {
                 fill("red");
             }
             else if (matrix[y][x] == 4) {

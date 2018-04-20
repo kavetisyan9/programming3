@@ -16,8 +16,8 @@ class Character {
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
         ];
-    }
 
+    }
     yntrelVandak(ch) {
         var found = [];
         for (var i in this.directions) {

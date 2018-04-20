@@ -1,9 +1,9 @@
 class Mard extends Character {
     constructor(x, y, index) {
         super(x, y, index);
-        this.energy = Math.round(Math.random() * 24);
-        this.speed = 24;
-        this.multiply = Math.round(Math.random() * 24);
+        this.energy = Math.round(Math.random() * 16);
+        this.speed = 16;
+        this.multiply = Math.round(Math.random() * 16);
     }
 
     yntrelVandak(ch) {
@@ -41,7 +41,7 @@ class Mard extends Character {
             this.energy += this.speed / 2;
             matrix[this.y][this.x] = 0;
             this.x = vand[0]; this.y = vand[1];
-            matrix[this.y][this.x] = 3;
+            matrix[this.y][this.x] = 4;
             for (var i in xotakerArr) {
                 if (xotakerArr[i].x == this.x && xotakerArr[i].y == this.y) {
                     xotakerArr.splice(i, 1);
@@ -55,11 +55,11 @@ class Mard extends Character {
         this.energy--;
         this.multiply++;
         var vand = random(this.yntrelVandak(1));
-        if (vand && this.multiply >= this.speed / 4) {
+        if (vand && this.multiply >= this.speed / 2) {
             this.energy += this.speed;
             matrix[this.y][this.x] = 0;
             this.x = vand[0]; this.y = vand[1];
-            matrix[this.y][this.x] = 2;
+            matrix[this.y][this.x] = 4;
             for (var i in grassArr) {
                 if (grassArr[i].x == this.x && grassArr[i].y == this.y) {
                     grassArr.splice(i, 1);

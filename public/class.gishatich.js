@@ -2,7 +2,7 @@ class Gishatich extends Character {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = Math.round(Math.random() * 16);
-        this.speed = 16;
+        this.speed = 24;
         this.multiply = Math.round(Math.random() * 16);
     }
 
@@ -38,7 +38,7 @@ class Gishatich extends Character {
         this.energy--;
         var vand = random(this.yntrelVandak(2));
         if (vand && this.multiply >= this.speed / 2) {
-            this.energy += this.speed / 2;
+            this.energy += this.speed/2;
             matrix[this.y][this.x] = 0;
             this.x = vand[0]; this.y = vand[1];
             matrix[this.y][this.x] = 3;
