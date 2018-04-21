@@ -6,7 +6,7 @@ function genMatrix(w, h) {
             var r = random(100);
             if (r < 20) r = 0;
             else if (r < 55) r = 1;
-            else if (r < 80) r = 2;
+            else if (r < 85) r = 2;
             else if (r < 90) r = 3;
             else if (r < 100) r = 4;
             matrix[y][x] = r;
@@ -23,19 +23,19 @@ var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [];
 
 function setup() {
     matrix = genMatrix(w, h);
-    createCanvas(side * w, side * h);
+    createCanvas(side * w, side * (h+1.5));
     background("#acacac");
     frameRate(5);
     for (var y in matrix) {
         for (var x in matrix[y]) {
-            if(matrix[y][x] == 1) {
-                grassArr.push(new Grass(x*1, y*1, 1));
+            if (matrix[y][x] == 1) {
+                grassArr.push(new Grass(x * 1, y * 1, 1));
             }
-            else if(matrix[y][x] == 2) {
-                xotakerArr.push(new Xotaker(x*1, y*1, 2));
+            else if (matrix[y][x] == 2) {
+                xotakerArr.push(new Xotaker(x * 1, y * 1, 2));
             }
-            else if(matrix[y][x] == 3) {
-                gishatichArr.push(new Gishatich(x*1, y*1, 3))
+            else if (matrix[y][x] == 3) {
+                gishatichArr.push(new Gishatich(x * 1, y * 1, 3))
             }
             else if (matrix[y][x] == 4) {
                 mardArr.push(new Mard(x * 1, y * 1, 3))
@@ -48,20 +48,20 @@ function draw() {
     background("#acacac");
     for (var y in matrix) {
         for (var x in matrix[y]) {
-            if(matrix[y][x] == 0) {
+            if (matrix[y][x] == 0) {
                 fill("#acacac");
             }
-            else if(matrix[y][x] == 1) {
+            else if (matrix[y][x] == 1) {
                 fill("green");
             }
-            else if(matrix[y][x] == 2) {
+            else if (matrix[y][x] == 2) {
                 fill("yellow");
             }
-            else if(matrix[y][x] == 3) {
+            else if (matrix[y][x] == 3) {
                 fill("red");
             }
             else if (matrix[y][x] == 4) {
-                fill("black");
+                fill("#fdd17f");
             }
             rect(x * side, y * side, side, side);
         }
@@ -76,7 +76,6 @@ function draw() {
         xotakerArr[i].utel();
         xotakerArr[i].mahanal();
     }
-
     for (var i in gishatichArr) {
         gishatichArr[i].bazmanal();
         gishatichArr[i].utel();
@@ -87,7 +86,6 @@ function draw() {
         mardArr[i].bazmanal();
         mardArr[i].utelXot();
         mardArr[i].utelXotaker();
-        mardArr[i].utelGishatich();
         mardArr[i].mahanal();
     }
 }

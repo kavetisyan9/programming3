@@ -2,7 +2,7 @@ class Mard extends Character {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = Math.round(Math.random() * 16);
-        this.speed = 16;
+        this.speed = 32;
         this.multiply = Math.round(Math.random() * 16);
     }
 
@@ -67,26 +67,6 @@ class Mard extends Character {
             }
         }
         else this.sharjvel();
-
-    }
-
-    utelGishatich() {
-        this.energy--;
-        this.multiply++;
-        var vand = random(this.yntrelVandak(1));
-        if (vand && this.multiply >= this.speed / 2) {
-            this.energy += this.speed;
-            matrix[this.y][this.x] = 0;
-            this.x = vand[0]; this.y = vand[1];
-            matrix[this.y][this.x] = 4;
-            for (var i in gishatichArr) {
-                if (gishatichArr[i].x == this.x && gishatichArr[i].y == this.y) {
-                    gishatichArr.splice(i, 1);
-                }
-            }
-        }
-        else this.sharjvel();
-
     }
 
     bazmanal() {

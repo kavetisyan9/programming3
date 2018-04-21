@@ -27,7 +27,7 @@ class Xotaker extends Character {
             this.multiply = 0;
         }
     }
-
+    
     utel() {
         this.energy--;
         this.multiply++;
