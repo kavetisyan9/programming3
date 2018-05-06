@@ -1,7 +1,8 @@
 class Xotaker extends Character {
-    constructor(x, y, index) {
+    constructor(x, y, index, ser) {
         super(x, y, index);
         this.energy = Math.round(Math.random() * 8);
+        this.ser = (ser == 0 ? "arakan" : "igakan");
     }
 
     stanalNorKordinatner() {
@@ -27,7 +28,7 @@ class Xotaker extends Character {
             this.multiply = 0;
         }
     }
-    
+
     utel() {
         this.energy--;
         this.multiply++;
@@ -48,7 +49,15 @@ class Xotaker extends Character {
     }
 
     bazmanal() {
-        var vand = random(this.yntrelVandak(0));
+        if (this.ser == "arakan") {
+            var vandak = random(this.yntrelVandak(2.5));
+        }
+        else if (this.ser == "igakan") {
+            var vandak = random(this.yntrelVandak(2));
+        }
+        if (vandak) {
+            var vand = random(this.yntrelVandak(0));
+        }
         if (vand && this.energy >= this.speed) {
             this.energy = 1;
             var newxotaker = new Xotaker(vand[0], vand[1], 2);

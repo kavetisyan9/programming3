@@ -52,6 +52,12 @@ class Gishatich extends Character {
     }
 
     bazmanal() {
+        if (this.ser == "arakan") {
+            var vand = random(this.yntrelVandak(3.5));
+        }
+        else if (this.ser == "igakan") {
+            var vand = random(this.yntrelVandak(3));
+        }
         var vand = random(this.yntrelVandak(0));
         if (vand && this.energy >= this.speed) {
             this.energy = 1;
