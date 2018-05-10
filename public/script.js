@@ -22,6 +22,24 @@ var h = 30;
 var side = 24;
 var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [], mardakerArr = [];
 
+var exanak = "garun"; 
+function poxelExanak()
+{
+    if(exanak == "garun"){
+        exanak = "amar";
+    }
+    else if(exanak == "amar"){
+        exanak = "ashun";
+    }
+    else if(exanak == "ashun"){
+        exanak = "dsmer";
+    }
+    else if(exanak == "dsmer"){
+        exanak = "garun";
+    }
+}
+setInterval(poxelExanak,3000);
+    
 function setup() {
     matrix = genMatrix(w, h);
     createCanvas(side * w, side * (h + 1.5));
@@ -64,7 +82,18 @@ function draw() {
                 fill("#acacac");
             }
             else if (matrix[y][x] == 1) {
-                fill("green");
+                if(exanak == "garun"){
+                    fill("green");
+                }
+                else if(exanak == "amar"){
+                    fill("#00bb00");
+                }
+                else if(exanak == "ashun"){
+                    fill("#799602");
+                }
+                else if(exanak == "dsmer"){
+                    fill("#CEE56E");
+                }
             }
             else if (matrix[y][x] == 2) {
                 fill("yellow");
@@ -81,11 +110,10 @@ function draw() {
             rect(x * side, y * side, side, side);
         }
     }
-
     for (var i in grassArr) {
         grassArr[i].mul();
     }
-
+ 
     for (var i in xotakerArr) {
         xotakerArr[i].bazmanal();
         xotakerArr[i].utel();
@@ -96,7 +124,11 @@ function draw() {
         gishatichArr[i].utel();
         gishatichArr[i].mahanal();
     }
-
+    if(exanak == "amar" && grassArr.length<50)
+    {
+        mardArr.splice(0,(mardArr.length)/2);
+        console.log("ddd");//matricaic jnjel
+    }
     for (var i in mardArr) {
         mardArr[i].bazmanal();
         mardArr[i].utelXot();
@@ -105,9 +137,14 @@ function draw() {
     }
 
     for (var i in mardakerArr) {
-        mardakerArr[i].bazmanal();
-        mardakerArr[i].utelGishatich();
-        mardakerArr[i].utelMard();
-        mardakerArr[i].mahanal();
+        if (exanak == "ashun"||exanak == "dsmer"){
+            mardakerArr[i].mahanal();
+        }
+        else{
+            mardakerArr[i].bazmanal();
+            mardakerArr[i].utelGishatich();
+            //mardakerArr[i].utelMard();
+            mardakerArr[i].mahanal();
+        }
     }
 }

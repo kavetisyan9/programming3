@@ -2,7 +2,7 @@ class Mardaker extends Character {
     constructor(x, y, index, ser) {
         super(x, y, index);
         this.energy = Math.round(Math.random() * 8);
-        this.speed = 32;
+        this.speed = 16;
         this.multiply = Math.round(Math.random() * 8);
         this.ser = (ser == 0 ? "arakan" : "igakan");
     }
@@ -84,7 +84,6 @@ class Mardaker extends Character {
             this.energy = 1;
             var newmardaker = new Mardaker(vand[0], vand[1], 5);
             mardakerArr.push(newmardaker);
-            console.log('dknsak');
         }
     }
 
