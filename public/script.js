@@ -22,24 +22,23 @@ var h = 30;
 var side = 24;
 var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [], mardakerArr = [];
 
-var exanak = "garun"; 
-function poxelExanak()
-{
-    if(exanak == "garun"){
+var exanak = "garun";
+function poxelExanak() {
+    if (exanak == "garun") {
         exanak = "amar";
     }
-    else if(exanak == "amar"){
+    else if (exanak == "amar") {
         exanak = "ashun";
     }
-    else if(exanak == "ashun"){
+    else if (exanak == "ashun") {
         exanak = "dsmer";
     }
-    else if(exanak == "dsmer"){
+    else if (exanak == "dsmer") {
         exanak = "garun";
     }
 }
-setInterval(poxelExanak,3000);
-    
+setInterval(poxelExanak, 3000);
+
 function setup() {
     matrix = genMatrix(w, h);
     createCanvas(side * w, side * (h + 1.5));
@@ -52,22 +51,22 @@ function setup() {
             }
             else if (matrix[y][x] == 2) {
                 var ser = (Math.round(Math.random())) / 2;
-                xotakerArr.push(new Xotaker(x * 1, y * 1, 2+ser, ser));
+                xotakerArr.push(new Xotaker(x * 1, y * 1, 2 + ser, ser));
                 matrix[y][x] += ser;
             }
             else if (matrix[y][x] == 3) {
                 var ser = (Math.round(Math.random())) / 2;
-                gishatichArr.push(new Gishatich(x * 1, y * 1, 3+ser, ser));
+                gishatichArr.push(new Gishatich(x * 1, y * 1, 3 + ser, ser));
                 matrix[y][x] += ser;
             }
             else if (matrix[y][x] == 4) {
                 var ser = (Math.round(Math.random())) / 2;
-                mardArr.push(new Mard(x * 1, y * 1, 4+ser, ser));
+                mardArr.push(new Mard(x * 1, y * 1, 4 + ser, ser));
                 matrix[y][x] += ser;
             }
             else if (matrix[y][x] == 5) {
                 var ser = (Math.round(Math.random())) / 2;
-                mardakerArr.push(new Mardaker(x * 1, y * 1, 5+ser, ser));
+                mardakerArr.push(new Mardaker(x * 1, y * 1, 5 + ser, ser));
                 matrix[y][x] += ser;
             }
         }
@@ -76,22 +75,25 @@ function setup() {
 
 function draw() {
     background("#acacac");
+    fill(0);
+    textSize(24);
+    text("Exanak:" + exanak, 10, 745);
     for (var y in matrix) {
         for (var x in matrix[y]) {
             if (matrix[y][x] == 0) {
                 fill("#acacac");
             }
             else if (matrix[y][x] == 1) {
-                if(exanak == "garun"){
+                if (exanak == "garun") {
                     fill("green");
                 }
-                else if(exanak == "amar"){
+                else if (exanak == "amar") {
                     fill("#00bb00");
                 }
-                else if(exanak == "ashun"){
+                else if (exanak == "ashun") {
                     fill("#799602");
                 }
-                else if(exanak == "dsmer"){
+                else if (exanak == "dsmer") {
                     fill("#CEE56E");
                 }
             }
@@ -113,7 +115,7 @@ function draw() {
     for (var i in grassArr) {
         grassArr[i].mul();
     }
- 
+
     for (var i in xotakerArr) {
         xotakerArr[i].bazmanal();
         xotakerArr[i].utel();
@@ -124,11 +126,6 @@ function draw() {
         gishatichArr[i].utel();
         gishatichArr[i].mahanal();
     }
-    if(exanak == "amar" && grassArr.length<50)
-    {
-        mardArr.splice(0,(mardArr.length)/2);
-        console.log("ddd");//matricaic jnjel
-    }
     for (var i in mardArr) {
         mardArr[i].bazmanal();
         mardArr[i].utelXot();
@@ -137,14 +134,23 @@ function draw() {
     }
 
     for (var i in mardakerArr) {
-        if (exanak == "ashun"||exanak == "dsmer"){
+        /*if (exanak == "ashun" || exanak == "dsmer") {
             mardakerArr[i].mahanal();
-        }
-        else{
+        }*/
+       // else {
             mardakerArr[i].bazmanal();
             mardakerArr[i].utelGishatich();
-            //mardakerArr[i].utelMard();
+            mardakerArr[i].utelMard();
             mardakerArr[i].mahanal();
-        }
+        //}
+    }
+
+
+    if (grassArr.length == 900 || (grassArr.length == 0 && xotakerArr.length == 0 && gishatichArr.length == 0 && mardArr.length == 0 && mardakerArr.length == 0)) {
+        background("#acacac");
+        textSize(60);
+        fill(0);
+        textAlign(CENTER);
+        text("GAME OVER",360 ,370);
     }
 }
