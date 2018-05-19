@@ -1,11 +1,11 @@
-function genMatrix(w, h) {
+/*function genMatrix(w, h) {
     var matrix = [];
     for (var y = 0; y < h; y++) {
         matrix[y] = [];
         for (var x = 0; x < w; x++) {
             var r = random(100);
             if (r < 20) r = 0;
-            else if (r < 55) r = 1;
+            else if (r < 60) r = 1;
             else if (r < 85) r = 2;
             else if (r < 95) r = 3;
             else if (r < 99) r = 4;
@@ -14,36 +14,21 @@ function genMatrix(w, h) {
         }
     }
     return matrix;
-}
+}*/
+var socket = io();
 
-var matrix;
 var w = 30;
 var h = 30;
 var side = 24;
 var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [], mardakerArr = [];
 
 var exanak = "garun";
-function poxelExanak() {
-    if (exanak == "garun") {
-        exanak = "amar";
-    }
-    else if (exanak == "amar") {
-        exanak = "ashun";
-    }
-    else if (exanak == "ashun") {
-        exanak = "dsmer";
-    }
-    else if (exanak == "dsmer") {
-        exanak = "garun";
-    }
-}
-setInterval(poxelExanak, 3000);
+var info = [w, h];
 
-function setup() {
-    matrix = genMatrix(w, h);
-    createCanvas(side * w, side * (h + 1.5));
-    background("#acacac");
-    frameRate(5);
+
+socket.emit("send info", info);
+
+socket.on("send matrix", function(matrix) {
     for (var y in matrix) {
         for (var x in matrix[y]) {
             if (matrix[y][x] == 1) {
@@ -71,9 +56,34 @@ function setup() {
             }
         }
     }
+});
+
+function setup() {
+    createCanvas(side * w, side * (h + 1.5));
+    background("#acacac");
+    frameRate(5);
 }
 
-function draw() {
+socket.emit("send weather", exanak);
+
+/*function poxelExanak() {
+    if (exanak == "garun") {
+        exanak = "amar";
+    }
+    else if (exanak == "amar") {
+        exanak = "ashun";
+    }
+    else if (exanak == "ashun") {
+        exanak = "dsmer";
+    }
+    else if (exanak == "dsmer") {
+        exanak = "garun";
+    }
+}
+setInterval(poxelExanak, 3000);*/
+
+
+/*function draw() {
     background("#acacac");
     fill(0);
     textSize(24);
@@ -134,15 +144,15 @@ function draw() {
     }
 
     for (var i in mardakerArr) {
-        /*if (exanak == "ashun" || exanak == "dsmer") {
+        if (exanak == "ashun" || exanak == "dsmer") {
             mardakerArr[i].mahanal();
-        }*/
-       // else {
+        }
+        else {
             mardakerArr[i].bazmanal();
             mardakerArr[i].utelGishatich();
             mardakerArr[i].utelMard();
             mardakerArr[i].mahanal();
-        //}
+        }
     }
 
 
@@ -151,6 +161,6 @@ function draw() {
         textSize(60);
         fill(0);
         textAlign(CENTER);
-        text("GAME OVER",360 ,370);
+        text("GAME OVER", 360, 370);
     }
-}
+}*/
