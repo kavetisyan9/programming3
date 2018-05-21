@@ -15,16 +15,16 @@
     }
     return matrix;
 }*/
+
+
 var socket = io();
 
 var w = 30;
 var h = 30;
 var side = 24;
 var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [], mardakerArr = [];
-
-var exanak = "garun";
+var arrays = [grassArr,xotakerArr,gishatichArr,mardArr,mardakerArr];
 var info = [w, h];
-
 
 socket.emit("send info", info);
 
@@ -58,13 +58,14 @@ socket.on("send matrix", function(matrix) {
     }
 });
 
+socket.emit("send arrays", arrays); 
 function setup() {
     createCanvas(side * w, side * (h + 1.5));
     background("#acacac");
     frameRate(5);
 }
 
-socket.emit("send weather", exanak);
+//socket.emit("send weather", exanak);
 
 /*function poxelExanak() {
     if (exanak == "garun") {
