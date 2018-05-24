@@ -1,4 +1,6 @@
-class Mard extends Character {
+var Character = require('./class.character.js');
+
+module.exports = class Mard extends Character {
     constructor(x, y, index, ser) {
         super(x, y, index);
         this.energy = Math.round(Math.random() * 16);

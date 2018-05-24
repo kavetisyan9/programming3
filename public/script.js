@@ -1,27 +1,58 @@
-var socket = io(); 
+socket = io.connect('http://localhost:3000');
+
+var matrix = [];
+
+socket.on("send matrix", function (data) {
+    matrix = [];
+    for (i in data) {
+        matrix.push(data[i]);
+    }
+});
+
 
 var w = 30;
 var h = 30;
 var side = 24;
-var exanak = "garun";
-//socket.emit("send weather1", exanak);
 
- 
+var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [], mardakerArr = [];
 
-socket.on("send weather", function(data){
-    console.log(data);
-    exanak = data;
+
+socket.on("send grassArr", function (data) {
+    grassArr = data;
 });
-function setup(){
-    createCanvas(side * w, side * (h + 1.5));
-    background("#acacac");
-    frameRate(5);
+socket.on("send xotakerArr", function (data) {
+    xotakerArr = data;
+});
+socket.on("send gishatichArr", function (data) {
+    gishatichArr = data;
+});
+socket.on("send mardArr", function (data) {
+    mardArr = data;
+});
+socket.on("send mardakerArr", function (data) {
+    mardakerArr = data;
+});
+
+var exanak = "garun";
+
+socket.on("sending weather", function (data) {
+    exanak = data;
     fill(0);
     textSize(24);
     text("Exanak:" + exanak, 10, 745);
-}   
+});
 
-function draww() {
+var matrix;
+
+function setup() {
+    createCanvas(side * w, side * (h + 1.5));
+    background("#acacac");
+    frameRate(5);
+
+}
+
+function draw() {
+
     for (var y in matrix) {
         for (var x in matrix[y]) {
             if (matrix[y][x] == 0) {
@@ -56,38 +87,6 @@ function draww() {
             rect(x * side, y * side, side, side);
         }
     }
-    for (var i in grassArr) {
-        grassArr[i].mul();
-    }
-
-    for (var i in xotakerArr) {
-        xotakerArr[i].bazmanal();
-        xotakerArr[i].utel();
-        xotakerArr[i].mahanal();
-    }
-    for (var i in gishatichArr) {
-        gishatichArr[i].bazmanal();
-        gishatichArr[i].utel();
-        gishatichArr[i].mahanal();
-    }
-    for (var i in mardArr) {
-        mardArr[i].bazmanal();
-        mardArr[i].utelXot();
-        mardArr[i].utelXotaker();
-        mardArr[i].mahanal();
-    }
-
-    for (var i in mardakerArr) {
-        if (exanak == "ashun" || exanak == "dsmer") {
-            mardakerArr[i].mahanal();
-        }
-        else {
-            mardakerArr[i].bazmanal();
-            mardakerArr[i].utelGishatich();
-            mardakerArr[i].utelMard();
-            mardakerArr[i].mahanal();
-        }
-    }
 
 
     if (grassArr.length == 900 || (grassArr.length == 0 && xotakerArr.length == 0 && gishatichArr.length == 0 && mardArr.length == 0 && mardakerArr.length == 0)) {
@@ -95,6 +94,6 @@ function draww() {
         textSize(60);
         fill(0);
         textAlign(CENTER);
-        text("GAME OVER",360 ,370);
+        text("GAME OVER", 360, 370);
     }
 }

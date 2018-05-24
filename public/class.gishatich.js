@@ -1,4 +1,6 @@
-class Gishatich extends Character {
+var Character = require('./class.character.js');
+
+module.exports = class Gishatich extends Character {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = Math.round(Math.random() * 16);

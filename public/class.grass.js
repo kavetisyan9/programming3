@@ -1,4 +1,6 @@
-class Grass extends Character {
+var Character = require('./class.character.js');
+
+module.exports = class Grass extends Character {
     mul() {
         this.multiply++;
         this.direction = random(this.yntrelVandak(0));
