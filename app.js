@@ -1,13 +1,13 @@
 var express = require("express");
 var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
-var Grass = require('./public/class.grass.js');
-var Xotaker = require('./public/class.xotaker.js');
-var Gishatich = require('./public/class.gishatich.js');
-var Mard = require('./public/class.mard.js');
-var Mardaker = require('./public/class.mardaker.js');
+var server = require("http").Server(app);
+var io = require("socket.io")(server);
+var fs = require('fs');
+var Grass = require("./public/class.grass.js");
+var Xotaker = require("./public/class.xotaker.js");
+var Gishatich = require("./public/class.gishatich.js");
+var Mard = require("./public/class.mard.js");
+var Mardaker = require("./public/class.mardaker.js");
 
 app.use(express.static("public"));
 
@@ -55,7 +55,7 @@ function genMatrix(w, h) {
 
 matrix = genMatrix(w, h);
 
-io.on('connection', function (socket) {
+io.on("connection", function (socket) {
 
     var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [], mardakerArr = [];
 
@@ -152,3 +152,23 @@ function poxelExanak() {
 
 }
 setInterval(poxelExanak, 3000);
+
+
+
+var statistics = {
+    "Grass": grassArr.length,
+    "Xotaker": xotakerArr.length,
+    "Gishatich": gishatichArr.length,
+    "Mard": mardArr.length,
+    "Mardaker": mardakerArr.length
+}
+
+setInterval(function () {
+    statistics["Grass"] = grassArr.length;
+    statistics["Xotaker"] = xotakerArr.length;
+    statistics["Gishatich"] = gishatichArr.length;
+    statistics["Mard"] = mardArr.length;
+    statistics["Mardaker"] = mardakerArr.length;
+    fs.writeFile("statistics.json", JSON.stringify(statistics), function (err) {
+        if (err) throw err;
+    })}, 12000);

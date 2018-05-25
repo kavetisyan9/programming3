@@ -1,4 +1,4 @@
-var Character = require('./class.character.js');
+var Character = require("./class.character.js");
 
 module.exports = class Gishatich extends Character {
     constructor(x, y, index) {

@@ -1,4 +1,4 @@
-var Character = require('./class.character.js');
+var Character = require("./class.character.js");
 
 module.exports = class Xotaker extends Character {
     constructor(x, y, index, ser) {
