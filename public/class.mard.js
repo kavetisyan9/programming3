@@ -28,7 +28,7 @@ module.exports = class Mard extends Character {
     }
 
     sharjvel() {
-        var vand = random(this.yntrelVandak(0));
+        var vand = this.random(this.yntrelVandak(0));
         if (vand && this.multiply >= this.speed / 2) {
             this.energy--;
             matrix[this.y][this.x] = 0;
@@ -39,7 +39,7 @@ module.exports = class Mard extends Character {
 
     utelXotaker() {
         this.energy--;
-        var vand = random(this.yntrelVandak(2));
+        var vand = this.random(this.yntrelVandak(2));
         if (vand && this.multiply >= this.speed / 2) {
             this.energy += this.speed / 2;
             matrix[this.y][this.x] = 0;
@@ -57,7 +57,7 @@ module.exports = class Mard extends Character {
     utelXot() {
         this.energy--;
         this.multiply++;
-        var vand = random(this.yntrelVandak(1));
+        var vand = this.random(this.yntrelVandak(1));
         if (vand && this.multiply >= this.speed / 2) {
             this.energy += this.speed;
             matrix[this.y][this.x] = 0;
@@ -74,15 +74,15 @@ module.exports = class Mard extends Character {
 
     bazmanal() {
         if (this.ser == "arakan") {
-            var vandak = random(this.yntrelVandak(4.5));
+            var vandak = this.random(this.yntrelVandak(4.5));
         }
         else if (this.ser == "igakan") {
-            var vandak = random(this.yntrelVandak(4));
+            var vandak = this.random(this.yntrelVandak(4));
         }
         if (vandak) {
-            var vand = random(this.yntrelVandak(0));
+            var vand = this.random(this.yntrelVandak(0));
         }
-        var vand = random(this.yntrelVandak(0));
+        var vand = this.random(this.yntrelVandak(0));
         if (vand && this.energy >= this.speed) {
             this.energy = 1;
             var newmard = new Mard(vand[0], vand[1], 4);

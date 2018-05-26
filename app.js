@@ -34,13 +34,14 @@ global.matrix = [];
 global.exanak = "garun";
 io.emit("send weather", exanak);
 
+global.cnvacXoteriQanak = 0;
 
 function genMatrix(w, h) {
     var matrix = [];
     for (var y = 0; y < h; y++) {
         matrix[y] = [];
         for (var x = 0; x < w; x++) {
-            var r = Math.random(100);
+            var r = Math.random() * 100;
             if (r < 20) r = 0;
             else if (r < 55) r = 1;
             else if (r < 85) r = 2;
@@ -55,59 +56,56 @@ function genMatrix(w, h) {
 
 matrix = genMatrix(w, h);
 
+for (var y in matrix) {
+    for (var x in matrix[y]) {
+        if (matrix[y][x] == 1) {
+            grassArr.push(new Grass(x * 1, y * 1, 1));
+            cnvacXoteriQanak ++ ;
+        }
+        else if (matrix[y][x] == 2) {
+            var ser = (Math.round(Math.random())) / 2;
+            xotakerArr.push(new Xotaker(x * 1, y * 1, 2 + ser, ser));
+            matrix[y][x] += ser;
+        }
+        else if (matrix[y][x] == 3) {
+            var ser = (Math.round(Math.random())) / 2;
+            gishatichArr.push(new Gishatich(x * 1, y * 1, 3 + ser, ser));
+            matrix[y][x] += ser;
+        }
+        else if (matrix[y][x] == 4) {
+            var ser = (Math.round(Math.random())) / 2;
+            mardArr.push(new Mard(x * 1, y * 1, 4 + ser, ser));
+            matrix[y][x] += ser;
+        }
+        else if (matrix[y][x] == 5) {
+            var ser = (Math.round(Math.random())) / 2;
+            mardakerArr.push(new Mardaker(x * 1, y * 1, 5 + ser, ser));
+            matrix[y][x] += ser;
+        }
+    }
+}
+
 io.on("connection", function (socket) {
 
-    var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [], mardakerArr = [];
-
     setInterval(function () {
-        for (var y in matrix) {
-            for (var x in matrix[y]) {
-                if (matrix[y][x] == 1) {
-                    grassArr.push(new Grass(x * 1, y * 1, 1));
-                }
-                else if (matrix[y][x] == 2) {
-                    var ser = (Math.round(Math.random())) / 2;
-                    xotakerArr.push(new Xotaker(x * 1, y * 1, 2 + ser, ser));
-                    matrix[y][x] += ser;
-                }
-                else if (matrix[y][x] == 3) {
-                    var ser = (Math.round(Math.random())) / 2;
-                    gishatichArr.push(new Gishatich(x * 1, y * 1, 3 + ser, ser));
-                    matrix[y][x] += ser;
-                }
-                else if (matrix[y][x] == 4) {
-                    var ser = (Math.round(Math.random())) / 2;
-                    mardArr.push(new Mard(x * 1, y * 1, 4 + ser, ser));
-                    matrix[y][x] += ser;
-                }
-                else if (matrix[y][x] == 5) {
-                    var ser = (Math.round(Math.random())) / 2;
-                    mardakerArr.push(new Mardaker(x * 1, y * 1, 5 + ser, ser));
-                    matrix[y][x] += ser;
-                }
-            }
-        }
-
-        io.sockets.emit("send matrix", matrix);
 
         for (var i in grassArr) {
             grassArr[i].mul();
         }
-        io.emit("send grassArr", grassArr);
 
         for (var i in xotakerArr) {
             xotakerArr[i].bazmanal();
             xotakerArr[i].utel();
             xotakerArr[i].mahanal();
         }
-        io.emit("send xotakerArr", xotakerArr);
+
 
         for (var i in gishatichArr) {
             gishatichArr[i].bazmanal();
             gishatichArr[i].utel();
             gishatichArr[i].mahanal();
         }
-        io.emit("send gishatichArr", gishatichArr);
+
 
         for (var i in mardArr) {
             mardArr[i].bazmanal();
@@ -115,8 +113,6 @@ io.on("connection", function (socket) {
             mardArr[i].utelXotaker();
             mardArr[i].mahanal();
         }
-        io.emit("send mardArr", mardArr);
-
 
         for (var i in mardakerArr) {
             if (exanak == "ashun" || exanak == "dsmer") {
@@ -129,8 +125,14 @@ io.on("connection", function (socket) {
                 mardakerArr[i].mahanal();
             }
         }
-        io.emit("send mardakerArr", mardakerArr);
-    }, 100);
+        io.sockets.emit("send grassArr", grassArr);
+        io.sockets.emit("send xotakerArr", xotakerArr);
+        io.sockets.emit("send gishatichArr", gishatichArr);
+        io.sockets.emit("send mardArr", mardArr);
+        io.sockets.emit("send mardakerArr", mardakerArr);
+        io.sockets.emit("send matrix", matrix);
+
+    }, 200);
 });
 
 
@@ -171,4 +173,5 @@ setInterval(function () {
     statistics["Mardaker"] = mardakerArr.length;
     fs.writeFile("statistics.json", JSON.stringify(statistics), function (err) {
         if (err) throw err;
-    })}, 12000);
+    })
+}, 12000);

@@ -14,7 +14,7 @@ var w = 30;
 var h = 30;
 var side = 24;
 
-/*var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [], mardakerArr = [];
+var grassArr = [], xotakerArr = [], gishatichArr = [], mardArr = [], mardakerArr = [];
 
 
 socket.on("send grassArr", function (data) {
@@ -32,20 +32,21 @@ socket.on("send mardArr", function (data) {
 socket.on("send mardakerArr", function (data) {
     mardakerArr = data;
 });
-*/
+
 var exanak = "garun";
 
 socket.on("send weather", function (data) {
     exanak = data;
-    fill(0);
-    textSize(24);
-    text("Exanak:" + exanak, 10, 745);
+    document.getElementById("exanak").innerHTML ="Exanak:"+ exanak;
+    //fill(0);
+    //textSize(24);
+    //text("Exanak:" + exanak, 10, 745);
 });
 
 var matrix;
 
 function setup() {
-    createCanvas(side * w, side * (h + 1.5));
+    createCanvas(side * w, side * h);
     background("#acacac");
     frameRate(5);
 
@@ -89,11 +90,12 @@ function draw() {
     }
 
 
-    /*if (grassArr.length == 900 || (grassArr.length == 0 && xotakerArr.length == 0 && gishatichArr.length == 0 && mardArr.length == 0 && mardakerArr.length == 0)) {
+    if (grassArr.length == 900 || (grassArr.length == 0 && xotakerArr.length == 0 && gishatichArr.length == 0 && mardArr.length == 0 && mardakerArr.length == 0)) {
         background("#acacac");
         textSize(60);
         fill(0);
         textAlign(CENTER);
         text("GAME OVER", 360, 370);
-    }*/
+        document.getElementById("exanak").innerHTML ="";
+    }
 }

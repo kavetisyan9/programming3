@@ -32,4 +32,10 @@ module.exports = class Character {
         return found;
     }
 
+    random(array) {
+        var rnd = Math.floor(Math.random() * array.length);
+        var object = array[rnd];
+        return object;
+    }
+
 }

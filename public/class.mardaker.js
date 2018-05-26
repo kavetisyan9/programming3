@@ -28,7 +28,7 @@ module.exports = class Mardaker extends Character {
     }
 
     sharjvel() {
-        var vand = random(this.yntrelVandak(0));
+        var vand = this.random(this.yntrelVandak(0));
         if (vand && this.multiply >= this.speed / 2) {
             this.energy--;
             matrix[this.y][this.x] = 0;
@@ -39,7 +39,7 @@ module.exports = class Mardaker extends Character {
 
     utelGishatich() {
         this.energy--;
-        var vand = random(this.yntrelVandak(3));
+        var vand = this.random(this.yntrelVandak(3));
         if (vand && this.multiply >= this.speed / 2) {
             this.energy += this.speed / 2;
             matrix[this.y][this.x] = 0;
@@ -57,7 +57,7 @@ module.exports = class Mardaker extends Character {
     utelMard() {
         this.energy--;
         this.multiply++;
-        var vand = random(this.yntrelVandak(4));
+        var vand = this.random(this.yntrelVandak(4));
         if (vand && this.multiply >= this.speed / 2) {
             this.energy += this.speed;
             matrix[this.y][this.x] = 0;
@@ -74,13 +74,13 @@ module.exports = class Mardaker extends Character {
 
     bazmanal() {
         if (this.ser == "arakan") {
-            var vandak = random(this.yntrelVandak(5.5));
+            var vandak = this.random(this.yntrelVandak(5.5));
         }
         else if (this.ser == "igakan") {
-            var vandak = random(this.yntrelVandak(5));
+            var vandak = this.random(this.yntrelVandak(5));
         }
         if (vandak) {
-            var vand = random(this.yntrelVandak(0));
+            var vand = this.random(this.yntrelVandak(0));
         }
         if (vand && this.energy >= this.speed) {
             this.energy = 1;
