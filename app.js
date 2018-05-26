@@ -35,6 +35,8 @@ global.exanak = "garun";
 io.emit("send weather", exanak);
 
 global.cnvacXoteriQanak = 0;
+global.xotakerArakan = 0;
+global.xotakerIgakan = 0;
 
 function genMatrix(w, h) {
     var matrix = [];
@@ -60,12 +62,14 @@ for (var y in matrix) {
     for (var x in matrix[y]) {
         if (matrix[y][x] == 1) {
             grassArr.push(new Grass(x * 1, y * 1, 1));
-            cnvacXoteriQanak ++ ;
+            cnvacXoteriQanak++;
         }
         else if (matrix[y][x] == 2) {
             var ser = (Math.round(Math.random())) / 2;
             xotakerArr.push(new Xotaker(x * 1, y * 1, 2 + ser, ser));
             matrix[y][x] += ser;
+            if (ser == 0) xotakerArakan++;
+            else xotakerIgakan++;
         }
         else if (matrix[y][x] == 3) {
             var ser = (Math.round(Math.random())) / 2;
@@ -132,7 +136,7 @@ io.on("connection", function (socket) {
         io.sockets.emit("send mardakerArr", mardakerArr);
         io.sockets.emit("send matrix", matrix);
 
-    }, 200);
+    }, 1000);
 });
 
 
@@ -158,20 +162,47 @@ setInterval(poxelExanak, 3000);
 
 
 var statistics = {
-    "Grass": grassArr.length,
-    "Xotaker": xotakerArr.length,
-    "Gishatich": gishatichArr.length,
-    "Mard": mardArr.length,
-    "Mardaker": mardakerArr.length
+    "Grass_Born": cnvacXoteriQanak,
+    "Xotaker_Arakan": xotakerArakan,
+    "Xotaker_Igakan": xotakerIgakan,
+    "Gishatich_Qanak": gishatichArr.length,
+    "Mard_Qanak": mardArr.length,
+    "Mardaker_Qanak": mardakerArr.length
 }
 
 setInterval(function () {
-    statistics["Grass"] = grassArr.length;
-    statistics["Xotaker"] = xotakerArr.length;
-    statistics["Gishatich"] = gishatichArr.length;
-    statistics["Mard"] = mardArr.length;
-    statistics["Mardaker"] = mardakerArr.length;
+    statistics["Grass_Born"] = cnvacXoteriQanak;
+    statistics["Xotaker_Arakan"] = xotakerArakan;
+    statistics["Xotaker_Igakan"] = xotakerIgakan;
+    statistics["Gishatich_Qanak"] = gishatichArr.length;
+    statistics["Mard_Qanak"] = mardArr.length;
+    statistics["Mardaker_Qanak"] = mardakerArr.length;
     fs.writeFile("statistics.json", JSON.stringify(statistics), function (err) {
         if (err) throw err;
     })
 }, 12000);
+
+
+
+
+io.on('updated matrix', function (data) {
+    matrix = data;
+});
+/*
+io.on('sending updated grassArr', function (data) {
+    grassArr = data;
+});
+io.on('sending updated xotakerArr', function (data) {
+    xotakerArr = data;
+});
+io.on('sending updated gishatichArr', function (data) {
+    gishatichArr = data;
+});
+io.on('sending updated mardArr', function (data) {
+    mardArr = data;
+});
+io.on('sending updated mardakerArr', function (data) {
+    mardakerArr = data;
+})
+*/
+

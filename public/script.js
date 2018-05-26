@@ -99,3 +99,81 @@ function draw() {
         document.getElementById("exanak").innerHTML ="";
     }
 }
+
+
+
+
+
+function bodyClick(evt) {
+    if (evt.pageX <= side * w && evt.pageY <= side * h) {
+        m = Math.floor(evt.pageX / side);
+        n = Math.floor(evt.pageY / side);
+
+        directions = [
+            [m, n],
+            [m - 1, n - 1],
+            [m, n - 1],
+            [m + 1, n - 1],
+            [m - 1, n],
+            [m - 1, n + 1],
+            [m, n + 1],
+            [m + 1, n + 1],
+            [m + 1, n]
+        ]
+
+        for (k in directions) {
+            var a = directions[k][0];
+            var b = directions[k][1];
+
+            if (a >= 0 && a < matrix[0].length && b >= 0 && b < matrix.length) {
+
+                if (matrix[a][b] == 1) {
+                    for (var m in grassArr) {
+                        if (grassArr[m].x == a && grassArr[m].y == b) {
+                            grassArr.splice(m, 1);
+                        }
+                    }
+                    socket.emit('sending updated grassArr', grassArr);
+                }
+                else if (matrix[a][b] == 2 || matrix[a][b] == 2.5) {
+                    for (var m in xotakerArr) {
+                        if (xotakerArr[m].x == a && xotakerArr[m].y == b) {
+                            xotakerArr.splice(m, 1);
+                        }
+                    }
+                    socket.emit('sending updated xotakerArr', xotakerArr);
+                }
+                else if (matrix[a][b] == 3 || matrix[a][b] == 3.5) {
+                    for (var m in gishatichArr) {
+                        if (gishatichArr[m].x == a && gishatichArr[m].y == b) {
+                            gishatichArr.splice(m, 1);
+                        }
+                    }
+                    socket.emit('sending updated gishatichArr', gishatichArr);
+                }
+                else if (matrix[a][b] == 4 || matrix[a][b] == 4.5) {
+                    for (var m in mardArr) {
+                        if (mardArr[m].x == a && mardArr[m].y == b) {
+                            mardArr.splice(m, 1);
+                        }
+                    }
+                    socket.emit('sending updated mardArr', mardArr);
+                }
+                else if (matrix[a][b] == 5) {
+                    for (var m in mardakerArr) {
+                        if (mardakerArr[m].x == a && mardakerArr[m].y == b) {
+                            mardakerArr.splice(m, 1);
+                        }
+                    }
+                    socket.emit('sending updated mardakerArr', mardakerArr);
+                }
+                matrix[b][a] = 0;
+            }
+        }
+
+        socket.emit('updated matrix', matrix);
+    }
+}
+window.onclick = bodyClick;
+
+
