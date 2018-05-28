@@ -24,11 +24,9 @@ global.xotakerArr = [];
 global.gishatichArr = [];
 global.mardArr = [];
 global.mardakerArr = [];
-
 global.w = 30;
 global.h = 30;
 global.side = 22;
-
 global.matrix = [];
 
 global.exanak = "garun";
@@ -94,10 +92,19 @@ io.on("connection", function (socket) {
     setInterval(function () {
 
         for (var i in grassArr) {
+            if (exanak == "garun" || exanak == "amar") {
+                grassArr[i].multiply = 2*grassArr[i].multiply;
+            }
             grassArr[i].mul();
         }
 
         for (var i in xotakerArr) {
+            if (exanak == "garun" || exanak == "amar") {
+                xotakerArr[i].energy = 32;
+            }
+            else if (exanak == "ashun" || exanak == "dsmer") {
+                xotakerArr[i].speed = 4;
+            }
             xotakerArr[i].bazmanal();
             xotakerArr[i].utel();
             xotakerArr[i].mahanal();
@@ -105,6 +112,9 @@ io.on("connection", function (socket) {
 
 
         for (var i in gishatichArr) {
+            if (exanak == "ashun" || exanak == "dsmer") {
+                gishatichArr[i].speed = 4;
+            }
             gishatichArr[i].bazmanal();
             gishatichArr[i].utel();
             gishatichArr[i].mahanal();
@@ -112,9 +122,14 @@ io.on("connection", function (socket) {
 
 
         for (var i in mardArr) {
+            if (exanak == "ashun" || exanak == "dsmer") {
+                mardArr[i].speed = 16;
+                mardArr[i].utelXotaker();
+            }
+            else if (exanak == "garun" || exanak == "amar") {
+                mardArr[i].utelXot();
+            }
             mardArr[i].bazmanal();
-            mardArr[i].utelXot();
-            mardArr[i].utelXotaker();
             mardArr[i].mahanal();
         }
 
@@ -140,6 +155,26 @@ io.on("connection", function (socket) {
 });
 
 
+io.on("new matrix", function (data) {
+    matrix = data;
+});
+io.on("new grassArr", function (data) {
+    grassArr = data;
+});
+io.on("new xotakerArr", function (data) {
+    xotakerArr = data;
+});
+io.on("new gishatichArr", function (data) {
+    gishatichArr = data;
+});
+io.on("new mardArr", function (data) {
+    mardArr = data;
+});
+io.on("new mardakerArr", function (data) {
+    mardakerArr = data;
+})
+
+
 var exanak = "garun";
 function poxelExanak() {
     if (exanak == "garun") {
@@ -158,8 +193,6 @@ function poxelExanak() {
 
 }
 setInterval(poxelExanak, 3000);
-
-
 
 var statistics = {
     "Grass_Born": cnvacXoteriQanak,
@@ -185,24 +218,4 @@ setInterval(function () {
 
 
 
-io.on('updated matrix', function (data) {
-    matrix = data;
-});
-/*
-io.on('sending updated grassArr', function (data) {
-    grassArr = data;
-});
-io.on('sending updated xotakerArr', function (data) {
-    xotakerArr = data;
-});
-io.on('sending updated gishatichArr', function (data) {
-    gishatichArr = data;
-});
-io.on('sending updated mardArr', function (data) {
-    mardArr = data;
-});
-io.on('sending updated mardakerArr', function (data) {
-    mardakerArr = data;
-})
-*/
 

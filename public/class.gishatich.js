@@ -3,7 +3,7 @@ var Character = require("./class.character.js");
 module.exports = class Gishatich extends Character {
     constructor(x, y, index) {
         super(x, y, index);
-        this.energy = Math.round(Math.random() * 16);
+        this.energy = Math.round(Math.random() * 8);
         this.speed = 8;
         this.multiply = Math.round(Math.random() * 16);
     }
