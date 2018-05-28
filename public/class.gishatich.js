@@ -1,11 +1,12 @@
 var Character = require("./class.character.js");
 
 module.exports = class Gishatich extends Character {
-    constructor(x, y, index) {
+    constructor(x, y, index, ser) {
         super(x, y, index);
         this.energy = Math.round(Math.random() * 8);
         this.speed = 8;
         this.multiply = Math.round(Math.random() * 16);
+        this.ser = (ser == 0 ? "arakan" : "igakan");
     }
 
     yntrelVandak(ch) {
